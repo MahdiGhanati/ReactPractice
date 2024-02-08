@@ -48,8 +48,25 @@ export const successToast = (text="عملیات موفق", icon="success", posit
   return showToast(text, icon, position, autoClose)
 };
 
-export const successToast_v1 = (text="عملیات موفق", icon="success", position="top-right", autoClose=5000) => {
-  return toast(text, icon, position, autoClose)
+export const successToast_v1 = (text="عملیات موفق", icon="error",position="top-right", autoClose=5000) => {
+  return toast.success(text, {
+    theme: "colored", icon: ({theme, type}) =>  "✔️"
+  }, position, autoClose);
+  
+};
+
+export const errorToast_v1 = (text="عملیات ناموفق", icon="error",position="top-right", autoClose=5000) => {
+  return toast.error(text, {
+     icon: ({theme, type}) =>  "❌"
+  }, position, autoClose);
+  
+};
+
+export const upToast_v1 = (text="اطلاع رسانی", icon="error",position="top-right", autoClose=5000) => {
+  return toast.info(text, {
+    theme: "colored", icon: ({theme, type}) =>  "🚀"
+  }, position, autoClose);
+  
 };
 
 export const confirmAlert = (
@@ -74,12 +91,15 @@ export const confirmAlert = (
 function Notify() {
     const notify = () => {
         //successAlertModal("Mahdi Ghanati :-)")
-        successToast()
+        //successToast()
+        errorToast_v1()
+        upToast_v1()
+        
     };
     return (
         <div>
             <button onClick={notify}>Click Me!</button>
-            <ToastContainer />
+            <ToastContainer icon={false}/>
         </div>
     );
 }
