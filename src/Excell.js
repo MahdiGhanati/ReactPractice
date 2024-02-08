@@ -1,40 +1,56 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import * as XLSX from "xlsx";
 import { MappedBill } from "./ImortClass";
+import Loading from './loading';
 
 function Excell() {
   const [items, setItems] = useState([])
+  const [isLoading, setIsLoading] = useState(true);
   let i =0
+
+  useEffect(() => {
+    // Simulate an API call
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+  }, []);
+
+  if (isLoading) {
+    return <Loading/>;
+  }
 
 
   const readExcel = (file) => {
     const promise = new Promise((resolve, reject) => {
       const fileReader = new FileReader();
-      fileReader.readAsArrayBuffer(file);
-
-      fileReader.onload = (e) => {
-        const bufferArray = e.target.result;
-
-        const wb = XLSX.read(bufferArray, { type: "buffer" });
-
-        const wsname = wb.SheetNames[0];
-
-        const ws = wb.Sheets[wsname];
-
-        const info = XLSX.utils.sheet_to_json(ws); 
-
-        const inf = info.map(d => new MappedBill(d))
-        //console.log(info); 
-        resolve(inf);
-    };
-    
-    fileReader.onerror = (error) => {
-        reject(error);
-    };
+      if(file)
+      {
+        fileReader.readAsArrayBuffer(file);
+  
+        fileReader.onload = (e) => {
+          const bufferArray = e.target.result;
+  
+          const wb = XLSX.read(bufferArray, { type: "buffer" });
+  
+          const wsname = wb.SheetNames[0];
+  
+          const ws = wb.Sheets[wsname];
+  
+          const info = XLSX.utils.sheet_to_json(ws); 
+  
+          const inf = info.map(d => new MappedBill(d))
+          //console.log(info); 
+          resolve(inf);
+      };
+      
+      fileReader.onerror = (error) => {
+          reject(error);
+      };
+      }
 });
 
     promise.then((d) => {
-        setItems(d); 
+        setItems(d);     
     });
 
 };
