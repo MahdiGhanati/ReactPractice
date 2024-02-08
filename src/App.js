@@ -2,7 +2,6 @@ import './App.css';
 import Header from './Header';
 import Button from './Button';
 import { useState } from 'react';
-import Person from './Person';
 import Excell from './Excell';
 import Notify from './Notify';
 
@@ -14,7 +13,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App container p-8 mx-auto xl:px-0 ">
       <Header/>
       <Notify/>
       <Button count={count} onClick={handleClick}/>

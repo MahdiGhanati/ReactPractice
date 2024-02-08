@@ -97,8 +97,8 @@ function Notify() {
         
     };
     return (
-        <div>
-            <button onClick={notify}>Click Me!</button>
+        <div className='mt-2'>
+            <button className='bg-indigo-500 p-3 text-3xl font-bold rounded-full' onClick={notify}>Click Me!</button>
             <ToastContainer icon={false}/>
         </div>
     );
