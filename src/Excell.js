@@ -5,19 +5,15 @@ import Loading from './loading';
 
 function Excell() {
   const [items, setItems] = useState([])
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   let i =0
 
-  useEffect(() => {
-    // Simulate an API call
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 5000);
-  }, []);
-
-  if (isLoading) {
-    return <Loading/>;
-  }
+  // useEffect(() => {
+  //   // Simulate an API call
+  //   setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 5000);
+  // }, []);
 
 
   const readExcel = (file) => {
@@ -25,6 +21,7 @@ function Excell() {
       const fileReader = new FileReader();
       if(file)
       {
+        setIsLoading(true);
         fileReader.readAsArrayBuffer(file);
   
         fileReader.onload = (e) => {
@@ -44,13 +41,16 @@ function Excell() {
       };
       
       fileReader.onerror = (error) => {
+          setIsLoading(false);
           reject(error);
+
       };
       }
 });
 
     promise.then((d) => {
-        setItems(d);     
+        setItems(d);    
+        setIsLoading(false); 
     });
 
 };
@@ -70,12 +70,14 @@ function Excell() {
             const file = e.target.files[0];
             readExcel(file);
           }}
-        />
+        />        
+        {isLoading ? <Loading/> : null}
+
       </div>
-          <div class="mt-4 -mb-3">
-            <div class="not-prose relative bg-slate-50 rounded-xl overflow-hidden dark:bg-slate-800/25">
-              <div class="relative rounded-xl overflow-auto">
-                <div class="shadow-sm overflow-hidden my-8">
+          <div className="mt-4 -mb-3">
+            <div className="not-prose relative bg-slate-50 rounded-xl overflow-hidden dark:bg-slate-800/25">
+              <div className="relative rounded-xl overflow-auto">
+                <div className="shadow-sm overflow-hidden my-8">                
                   <table className="border-collapse table-auto w-full text-sm">
                     <thead>
                       <tr>
