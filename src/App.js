@@ -3,7 +3,8 @@ import Header from './Header';
 import Button from './Button';
 import { useState } from 'react';
 import Excell from './Excell';
-import Notify from './Notify';
+import GeneralReport from './report/GeneralReport';
+import UserContextProvider from './context/UserContext';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -14,10 +15,12 @@ function App() {
 
   return (
     <div className="App container p-8 mx-auto xl:px-0 ">
-      <Header/>
-      <Notify/>
-      <Button count={count} onClick={handleClick}/>
-      <Excell/>
+      <UserContextProvider>
+        <Header/>      
+        <GeneralReport/>
+        <Button count={count} onClick={handleClick}/>
+        <Excell/>
+      </UserContextProvider>
     </div>
   );
 }

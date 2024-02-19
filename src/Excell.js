@@ -2,6 +2,8 @@ import React, { useState,useEffect } from "react";
 import * as XLSX from "xlsx";
 import { MappedBill } from "./ImortClass";
 import Loading from './loading';
+import PagInation from './pagination/Pagination'
+import { usePagination } from './pagination/paginationHook';
 
 function Excell() {
   const [items, setItems] = useState([])
@@ -14,6 +16,12 @@ function Excell() {
   //     setIsLoading(false);
   //   }, 5000);
   // }, []);
+
+  const [tableData, paginationData] = usePagination({
+      allData : items,
+      countOnPage : 10,
+      pageRange : 3
+  })
 
 
   const readExcel = (file) => {
@@ -87,7 +95,7 @@ function Excell() {
                       </tr>
                     </thead>
                     <tbody>
-                        {items.map((d) => (
+                        {tableData.map((d) => (
                         <tr key={d.id}>
                           <td>{d.Item}</td>
                           <td>{d.Description}</td>
@@ -96,6 +104,9 @@ function Excell() {
                       ))}
                     </tbody>
                   </table>
+                  <div>
+                        <PagInation {...paginationData}/>
+                  </div>
                 </div>
               </div>
             </div>
