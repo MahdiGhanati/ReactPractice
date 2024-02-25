@@ -5,6 +5,8 @@ import { useState } from 'react';
 import Excell from './Excell';
 import GeneralReport from './report/GeneralReport';
 import UserContextProvider from './context/UserContext';
+import TotalDebt from './charts/TotalDebt';
+import DemandAnalists from './charts/DemandAnalysts';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -19,6 +21,8 @@ function App() {
         <Header/>      
         <GeneralReport/>
         <Button count={count} onClick={handleClick}/>
+        <TotalDebt/>
+        <DemandAnalists/>
         <Excell/>
       </UserContextProvider>
     </div>

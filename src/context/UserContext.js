@@ -1,6 +1,6 @@
 import React , { createContext, useState } from 'react'
 
-export const UserContext = React.createContext({
+export const UserContext = createContext({
     user: {
         fullName: '',
         avatar: "",
@@ -8,6 +8,7 @@ export const UserContext = React.createContext({
         linkedin:"",
       }
 })
+
   
 
 const UserContextProvider = ({ children }) => {
@@ -18,10 +19,11 @@ const UserContextProvider = ({ children }) => {
         linkedin:"https://www.linkedin.com/in/mostafa-ali-jafari/",
       }
     );
+
     
     return (
         <UserContext.Provider value={{
-            user
+            user,setUser
         }}>
             {children}
         </UserContext.Provider>

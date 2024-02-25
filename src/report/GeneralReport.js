@@ -1,5 +1,5 @@
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState,useCallback } from 'react'
 import DraggableModal from './DraggableModal'
 import {UserContext} from '../context/UserContext';
 
@@ -13,13 +13,21 @@ const GeneralReport = () => {
     //   })
 
     const {user,setUser} = useContext(UserContext)
+    const us = {
+        fullName:'Melika Ghanati'
+    }
+
     
 
+    const handlShowModal = ()=>{
+       setUser(us)
+       setshowGeneralReportModal(true)
+    }
     return (
         <>
         <button className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="button"
-             onClick={() => setshowGeneralReportModal(true)}
+             onClick={handlShowModal}
         >
             Open regular modal
         </button>
@@ -43,7 +51,7 @@ const GeneralReport = () => {
                                     <h4 className="mb-3 not_global_font text-center">گزارش عمومی</h4>
                                     <div className="row col-12">
                                             <div className="table-responsive">
-                                                Mahdi Ghanati : {user.linkedin}
+                                                Mahdi Ghanati : {user.fullName}
                                             </div>
                                             <div className="col">
                                             </div>
