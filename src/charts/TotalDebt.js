@@ -24,8 +24,6 @@ const TotalDebt = () => {
 
   },[])
 
-
-
   return (
     <ChartContent 
     title="بدهی کل - ريال" 
